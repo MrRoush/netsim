@@ -1,8 +1,9 @@
 <p><strong>DNS</strong> (Domain Name System) looks up the network address associated with a site name. The packet editor
 has three parts: the <strong>network</strong> layer says who sends the packet (<code>srcip</code>) and who should receive
-it (<code>dstip</code>); the <strong>transport</strong> layer identifies the protocol (<code>proto</code>) and optional
-hop limit (<code>ttl</code>); the <strong>application</strong> layer describes the request (<code>type</code>) and its
-data (<code>key</code>). This activity uses a simplified DNS exchange, not a complete DNS service.</p>
+it (<code>dstip</code>); the <strong>transport</strong> section identifies the protocol (<code>proto</code>) and also
+includes <code>ttl</code>, a limit on how many router hops a packet can take; the <strong>application</strong> layer
+describes the request (<code>type</code>) and its data (<code>key</code>). This activity uses a simplified DNS exchange,
+not a complete DNS service.</p>
 
 <ol>
 	<li>Add a packet from Alice. Set Network <code>srcip</code> to <code>Alice</code> and <code>dstip</code> to
