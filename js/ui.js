@@ -103,18 +103,43 @@ function payloadStr(packet, layer, field) {
 	return packet.hasOwnProperty("payload") && packet.payload.hasOwnProperty(layer) && packet.payload[layer].hasOwnProperty(field) ? packet.payload[layer][field] : "";
 }
 
+function progressKey(name) {
+	return "netsim." + name;
+}
+
+function readStore(key, fallback) {
+	try {
+		var v = localStorage.getItem(key);
+		return v === null ? fallback : JSON.parse(v);
+	} catch (e) {
+		return fallback;
+	}
+}
+
+function writeStore(key, value) {
+	try {
+		localStorage.setItem(key, JSON.stringify(value));
+	} catch (e) {
+		console.log("localStorage unavailable: " + e);
+	}
+}
+
 function savePlayerPackets() {
-	$.post("./solns.ajax.php?level="+levelid+"&method=save", {
-		json:JSON.stringify(playerPackets)
-	});
+	writeStore(progressKey("packets." + levelid), playerPackets);
 }
 
 function loadPlayerPackets() {
-	$.getJSON("./solns.ajax.php?level="+levelid+"&method=load").done(function(data){
-		playerPackets = data;
-		createLaunchers();
-	}).fail(function(jxr, txt, err) {
-		console.log("lPP fail: "+txt+", "+err);
-	});
+	var data = readStore(progressKey("packets." + levelid), []);
+	playerPackets = Array.isArray(data) ? data : [];
+	createLaunchers();
 }
 
+function markLevelComplete(id) {
+	var done = readStore(progressKey("completed"), {});
+	done[id] = true;
+	writeStore(progressKey("completed"), done);
+}
+
+function isLevelComplete(id) {
+	return readStore(progressKey("completed"), {})[id] === true;
+}
