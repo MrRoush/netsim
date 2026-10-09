@@ -1,14 +1,21 @@
-<p><strong>DHCP</strong> is commonly used to give devices their network settings when they join a network. The messages
-in this activity are a simplified discover, offer, request, and acknowledge sequence. The server offers Alice the
-practice address <strong>192.0.2.10</strong>.</p>
+<p><strong>DHCP</strong> (Dynamic Host Configuration Protocol) gives a device network settings, such as its IP address,
+when it joins a network. The server and Alice demonstrate the four-message sequence: <strong>discover</strong> asks for
+settings, <strong>offer</strong> proposes an address, <strong>request</strong> asks to use it, and
+<strong>acknowledge</strong> confirms it. Here, the offered practice address is <strong>192.0.2.10</strong>.</p>
 
-<p>First inspect the offer. Then create a request with application <strong>type</strong> set to
-<strong>request</strong> and <strong>key</strong> set to <strong>192.0.2.10</strong>. After the server confirms the
-address, use it as the source address for a web request.</p>
+<ol>
+	<li>Wait for the automatic discover and offer packets. Pause and inspect the offer to see
+		<code>192.0.2.10</code> in its Application <code>key</code>.</li>
+	<li>Add a packet from Alice. Set Network <code>srcip</code> to <code>Alice</code> and <code>dstip</code> to
+		<code>DHCP Server</code>; Transport <code>proto</code> to <code>DHCP</code>; and Application <code>type</code> to
+		<code>request</code> and <code>key</code> to <code>192.0.2.10</code>. Leave <code>ttl</code> blank, then send it.
+		Pause to inspect the acknowledge.</li>
+	<li>After confirmation, add a packet from Alice with Network <code>srcip</code> <code>192.0.2.10</code> and
+		<code>dstip</code> <code>Web Server</code>, and Application <code>type</code> <code>web-request</code>. Leave the
+		Transport fields and Application <code>key</code> blank, then send it.</li>
+</ol>
 
 <h3>Level Objectives</h3>
 <ul>
-	<li>Receive the server's address offer.</li>
-	<li>Request and receive confirmation of <strong>192.0.2.10</strong>.</li>
-	<li>Send a web request using the assigned address.</li>
+	<li>Request and receive confirmation of <strong>192.0.2.10</strong>, then use it as the source address for a web request.</li>
 </ul>

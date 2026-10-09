@@ -1,13 +1,20 @@
-<p>A <strong>hub</strong> repeats incoming traffic to its other connections. A <strong>switch</strong> learns which
-device is on each connection and can send known traffic only where it needs to go. A router connects different networks;
-it is not the same as a switch.</p>
+<p>A <strong>hub</strong> copies every incoming packet to its other connections. A <strong>switch</strong> learns which
+device is connected to each port and forwards a packet only to the known destination's port. Real Ethernet switches
+learn <strong>MAC addresses</strong> (hardware addresses); this simulation instead uses the packet's <code>srcip</code>
+and <code>dstip</code> labels. A <strong>router</strong> connects different networks, unlike a hub or switch.</p>
 
-<p>This activity uses the packet's source and destination labels to show the idea. Real Ethernet switches learn MAC
-addresses, which are not modeled here. Send one packet through the hub and notice that both other computers receive it.
-Then watch the switch learn Erin's location and send Dana's packet only to Erin.</p>
+<p>For both packets, enter the sender and recipient in the Network layer: <code>srcip</code> is the sender and
+<code>dstip</code> is the intended recipient. Leave the Transport and Application fields blank.</p>
+
+<ol>
+	<li>Add a packet sent from Alice with Network <code>srcip</code> <code>Alice</code> and <code>dstip</code>
+		<code>Bob</code>. Send it through the hub. Notice that Bob and Charlie both receive a copy.</li>
+	<li>The simulation first sends Erin's packet to Dana automatically, teaching the switch Erin's port. Add a packet
+		sent from Dana with Network <code>srcip</code> <code>Dana</code> and <code>dstip</code> <code>Erin</code>.
+		Send it and notice that only Erin receives it.</li>
+</ol>
 
 <h3>Level Objectives</h3>
 <ul>
-	<li>Send a packet from Alice to Bob through the hub; confirm that Charlie also receives a copy.</li>
-	<li>Send a packet from Dana to Erin through the switch.</li>
+	<li>Compare how the hub and switch forward packets.</li>
 </ul>

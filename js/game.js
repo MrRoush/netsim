@@ -34,9 +34,6 @@ function preload() {
 	game.load.image('packet', 'includes/circle.png');
 	game.load.image('server', 'includes/server.png');
 	game.load.image('router', 'includes/router.png');
-	game.load.image('hub', 'includes/icos/hub.jpg');
-	game.load.image('switch-icon', 'includes/icos/workgroup switch.jpg');
-
 	game.load.image('reset', 'includes/ui/reset.png');
 	game.load.image('pause', 'includes/ui/pause.png');
 	game.load.image('pause_', 'includes/ui/pause_grey.png');

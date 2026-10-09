@@ -1,12 +1,20 @@
-<p>A <strong>VLAN</strong> (virtual LAN) separates devices into groups on a switch. Devices in different VLANs are
-isolated at the switch unless a router is configured to connect those groups. Here, Alice and Bob are in VLAN 10;
-Guest and Teacher are in VLAN 20.</p>
+<p>A <strong>VLAN</strong> (virtual local area network) divides devices connected to a switch into separate logical
+groups. Devices in the same VLAN can communicate through the switch; devices in different VLANs cannot communicate
+unless a router connects their groups. Alice and Bob are in VLAN 10; Guest and Teacher are in VLAN 20. The VLAN
+membership is preconfigured on the switch's ports and is not a packet field you need to enter. This simulation does not
+model Ethernet VLAN tags or inter-VLAN routing.</p>
 
-<p>The VLAN labels are configured on the switch ports and are hidden from the packet editor. The simulation focuses on
-which traffic the switch forwards; it does not model Ethernet VLAN tags or inter-VLAN routing.</p>
+<p>For each packet, set Network <code>srcip</code> to <code>Alice</code> and set the destination in
+<code>dstip</code>. Leave the Transport and Application fields blank.</p>
+
+<ol>
+	<li>Set Network <code>dstip</code> to <code>Bob</code> and send the packet. Alice and Bob are both in VLAN 10, so it
+		arrives.</li>
+	<li>Change Network <code>dstip</code> to <code>Guest</code> and send another packet. Guest is in VLAN 20, so the
+		switch does not forward it.</li>
+</ol>
 
 <h3>Level Objectives</h3>
 <ul>
-	<li>Send a packet from Alice to Bob in the same VLAN.</li>
-	<li>Try to send a packet from Alice to Guest in another VLAN and observe that it stops at the switch.</li>
+	<li>Compare packet delivery to Bob and Guest, who are in different VLANs.</li>
 </ul>

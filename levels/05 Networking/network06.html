@@ -1,13 +1,13 @@
-<p>Encryption can protect message contents, but a device must also check that a key belongs to the person it expects.
-This activity uses a simplified key label to demonstrate that idea; it does not use real encryption, certificates, or
-digital signatures.</p>
+<p>A <strong>key</strong> is information used by encryption systems; a device must verify that a key belongs to the
+person it expects before trusting it. This activity demonstrates that check with text labels only. It does not perform
+encryption or verify identities using certificates or digital signatures.</p>
 
-<p>Eve sends Alice a reply that claims to be from Bob but contains an untrusted key. Alice ignores it. Later, Alice
-receives the trusted label <strong>trusted:Bob</strong>, so she sends Bob a message. Pause and inspect both replies to
-compare the labels.</p>
+<p>No packet entry is needed: the two key replies are sent automatically. Pause and click each reply to inspect its
+Application fields. Eve's reply claims Network <code>srcip</code> <code>Bob</code>, but its <code>key</code> is
+<code>Eve's key</code>. Alice ignores it. Bob's reply has the expected <code>key</code> <code>trusted:Bob</code>, so
+Alice automatically sends a <code>verified-message</code> to Bob.</p>
 
 <h3>Level Objectives</h3>
 <ul>
-	<li>Observe Alice ignore the untrusted key reply.</li>
-	<li>Observe Bob receive a message only after Alice gets the trusted key label.</li>
+	<li>Compare the two key labels and observe which reply Alice accepts.</li>
 </ul>
