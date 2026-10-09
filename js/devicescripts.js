@@ -32,8 +32,10 @@ var deviceScripts = {
 	},
 
 	hub: {
-		onPacketReceived: function (device, packet) {
-			//.
+		onPacketReceived: function (device, packet, portNum) {
+			for (var i = 0; i < device.ports.length; i++) {
+				if (i != portNum) sendPacket(device.id, i, packet);
+			}
 		}
 	},
 
@@ -248,6 +250,81 @@ var deviceScripts = {
                     }
                 }
             }
+        }
+    },
+    dns: {
+        onPacketReceived: function(device, packet, portNum) {
+            if (!packet.hasOwnProperty("application") || packet.application.type != "query") return;
+
+            var response = {
+                network: {
+                    srcip: device.id,
+                    dstip: packet.network.srcip
+                },
+                transport: {
+                    proto: "DNS"
+                },
+                application: {
+                    type: "answer",
+                    key: packet.application.key == "learn.example" ? "Web Server" : "not found"
+                }
+            };
+            sendPacket(device.id, portNum, response);
+        }
+    },
+    dhcp: {
+        onPacketReceived: function(device, packet, portNum) {
+            if (!packet.hasOwnProperty("application")) return;
+
+            var responseType;
+            if (packet.application.type == "discover") responseType = "offer";
+            else if (packet.application.type == "request" && packet.application.key == "192.0.2.10") responseType = "acknowledge";
+            else return;
+
+            sendPacket(device.id, portNum, {
+                network: {
+                    srcip: device.id,
+                    dstip: packet.network.srcip
+                },
+                transport: {
+                    proto: "DHCP"
+                },
+                application: {
+                    type: responseType,
+                    key: "192.0.2.10"
+                }
+            });
+        }
+    },
+    vlanSwitch: {
+        onPacketReceived: function(device, packet, portNum) {
+            var route = device.rules.find(function(rule) {
+                return rule.dstip == packet.network.dstip;
+            });
+            if (route && device.vlans[route.portNum] == device.vlans[portNum]) {
+                sendPacket(device.id, route.portNum, packet);
+            }
+        }
+    },
+    trustedKeyClient: {
+        onPacketReceived: function(device, packet, portNum) {
+            if (!packet.hasOwnProperty("application") ||
+                packet.application.type != "keyresponse" ||
+                packet.application.key != "trusted:Bob") return;
+
+            sendPacket(device.id, portNum, {
+                network: {
+                    srcip: device.id,
+                    dstip: "Bob"
+                },
+                transport: {
+                    proto: "secure-demo"
+                },
+                application: {
+                    type: "verified-message",
+                    key: packet.application.key
+                }
+            });
         }
     }
     
