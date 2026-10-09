@@ -9,7 +9,7 @@ not a complete DNS service.</p>
 	<li>Add a packet from Alice. Set Network <code>srcip</code> to <code>Alice</code> and <code>dstip</code> to
 		<code>DNS</code>; Transport <code>proto</code> to <code>DNS</code>; and Application <code>type</code> to
 		<code>query</code> and <code>key</code> to <code>learn.example</code>. Leave <code>ttl</code> blank, then send it.</li>
-	<li>Pause when the answer reaches Alice and inspect it. Its Application <code>key</code> is <code>Web Server</code>.
+	<li>Pause when the answer reaches Alice and inspect it. Its Application <code>key</code> is <code>Web Server</code>, the name of the server (its address is hidden until DNS reveals it).
 		Add a packet from Alice with Network <code>srcip</code> <code>Alice</code> and <code>dstip</code>
 		<code>Web Server</code>, and Application <code>type</code> <code>web-request</code>. Leave the other fields blank
 		and send it.</li>

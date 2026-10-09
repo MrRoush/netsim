@@ -11,7 +11,7 @@
 			]
 		},
 		{id:"DNS", image:"server", ports:1, x:0.7, y:0.3, script:deviceScripts.dns},
-		{id:"Web Server", image:"server", ports:1, x:0.7, y:0.7}
+		{id:"Web Server", image:"server", ports:1, x:0.7, y:0.7, secret:true}
 	],
 	links:[
 		{src:"Alice", srcport:0, dst:"Router", dstport:0},
