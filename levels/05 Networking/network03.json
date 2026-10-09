@@ -6,6 +6,7 @@
 			script:deviceScripts.manualRouter,
 			rules:[
 				{dstip:"Alice", portNum:0},
+				{dstip:"192.0.2.10", portNum:0},
 				{dstip:"DHCP Server", portNum:1},
 				{dstip:"Web Server", portNum:2}
 			]
