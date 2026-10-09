@@ -1,12 +1,14 @@
-<p>A <strong>firewall</strong> checks network traffic against rules. This firewall blocks packets whose source address
-is Bob and allows other traffic through its server-facing port. Real firewalls can use more detailed rules than this
-example.</p>
+<p>A <strong>firewall</strong> checks packets against rules and forwards or blocks them accordingly. This firewall's
+rule blocks packets whose Network <code>srcip</code> is <code>Bob</code>; other packets are forwarded to the service.
+Real firewalls can check more information than this simplified example.</p>
 
-<p>Send Alice's request to the service and observe that it arrives. Then send the same kind of request from Bob. The
-second packet reaches the firewall but is blocked there because its source matches the rule.</p>
+<p>For each packet, leave Transport and Application <code>key</code> blank, and set Application <code>type</code> to
+<code>web-request</code>. Send the first packet from Alice with Network <code>srcip</code> <code>Alice</code> and
+<code>dstip</code> <code>Service</code>. It passes through the firewall. Then send one from Bob with
+<code>srcip</code> <code>Bob</code> and <code>dstip</code> <code>Service</code>; it reaches the firewall and is blocked
+because its source matches the rule.</p>
 
 <h3>Level Objectives</h3>
 <ul>
-	<li>Send a request from Alice to the service.</li>
-	<li>Test Bob's request and confirm that it stops at the firewall.</li>
+	<li>Compare the firewall's handling of requests from Alice and Bob.</li>
 </ul>

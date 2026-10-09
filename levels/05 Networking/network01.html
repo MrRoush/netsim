@@ -1,11 +1,20 @@
-<p><strong>DNS</strong> helps a computer find an address for a site name. People can remember names more easily than
-numeric addresses. In this activity, Alice asks the DNS server to look up <strong>learn.example</strong>.</p>
+<p><strong>DNS</strong> (Domain Name System) looks up the network address associated with a site name. The packet editor
+has three parts: the <strong>network</strong> layer says who sends the packet (<code>srcip</code>) and who should receive
+it (<code>dstip</code>); the <strong>transport</strong> layer identifies the protocol (<code>proto</code>) and optional
+hop limit (<code>ttl</code>); the <strong>application</strong> layer describes the request (<code>type</code>) and its
+data (<code>key</code>). This activity uses a simplified DNS exchange, not a complete DNS service.</p>
 
-<p>Pause when the answer returns. Its application-layer <strong>key</strong> shows the server address to use. Then send
-a web request to that device. This is a small, fixed DNS example, not a complete DNS service.</p>
+<ol>
+	<li>Add a packet from Alice. Set Network <code>srcip</code> to <code>Alice</code> and <code>dstip</code> to
+		<code>DNS</code>; Transport <code>proto</code> to <code>DNS</code>; and Application <code>type</code> to
+		<code>query</code> and <code>key</code> to <code>learn.example</code>. Leave <code>ttl</code> blank, then send it.</li>
+	<li>Pause when the answer reaches Alice and inspect it. Its Application <code>key</code> is <code>Web Server</code>.
+		Add a packet from Alice with Network <code>srcip</code> <code>Alice</code> and <code>dstip</code>
+		<code>Web Server</code>, and Application <code>type</code> <code>web-request</code>. Leave the other fields blank
+		and send it.</li>
+</ol>
 
 <h3>Level Objectives</h3>
 <ul>
-	<li>Ask DNS for <strong>learn.example</strong>.</li>
-	<li>Use the returned address to send a web request to the Web Server.</li>
+	<li>Ask DNS for <strong>learn.example</strong> and use its answer to send a web request to the Web Server.</li>
 </ul>
