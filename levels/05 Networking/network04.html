@@ -1,0 +1,12 @@
+<p>A <strong>firewall</strong> checks network traffic against rules. This firewall blocks packets whose source address
+is Bob and allows other traffic through its server-facing port. Real firewalls can use more detailed rules than this
+example.</p>
+
+<p>Send Alice's request to the service and observe that it arrives. Then send the same kind of request from Bob. The
+second packet reaches the firewall but is blocked there because its source matches the rule.</p>
+
+<h3>Level Objectives</h3>
+<ul>
+	<li>Send a request from Alice to the service.</li>
+	<li>Test Bob's request and confirm that it stops at the firewall.</li>
+</ul>

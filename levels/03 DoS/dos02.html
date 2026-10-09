@@ -1,13 +1,9 @@
+<p>A <strong>firewall</strong> checks traffic against rules and can block packets from a listed source. Here, the firewall
+blocks Alice, so her packets do not reach Google. This activity uses one simple source-address rule; real firewalls can
+check many kinds of traffic.</p>
 
-<p>A server or computer can protect itself by blocking malicious computers using a <strong>firewall</strong>. A
-<strong>firewall</strong> keeps a list of "bad" source addresses and drops all packets that come from an address on
-the list. In this example, Google has learned from the previous attack that Alice is a malicious user and has set up
-a firewall to block her. Observe how the packets from Alice's computer to Google are dropped.
-
-<p>One way for an adversary to bypass a <strong>firewall</strong> is to launch a <strong>Distributed Denial of
-Service (DDos)</strong> attack. To do this, the adversary sends packets from multiple machines under her control.
-<p>To pass this level, launch a <strong>DDoS</strong> attack against Google from Alice's additional machines.
+<p>A <strong>distributed denial-of-service (DDoS)</strong> attack sends traffic from many devices. A firewall that blocks
+one source may not stop traffic from other sources. In this simulation, send traffic from the additional computers to Google.</p>
 
 <h3>Level Objectives</h3>
-
-<ul><li>send Google more packets than it can handle</li></ul>
+<ul><li>Send enough packets from the additional computers to fill Google's capacity meter.</li></ul>

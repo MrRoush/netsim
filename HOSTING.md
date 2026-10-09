@@ -38,6 +38,19 @@ python3 -m http.server 8000
 
 Students on the same network can browse to `http://<your-ip>:8000/`.
 
+## Previewing an unmerged branch
+
+The site is static, so a branch can be previewed without merging it:
+
+1. Check out the feature branch in your local working copy.
+2. From the repository folder, run `python3 -m http.server 8000`.
+3. Open <http://localhost:8000/> and select the activities you want to review.
+4. Stop the server with `Ctrl+C` when finished. The preview uses that branch's files only.
+
+For a shareable web preview, download the feature branch as a ZIP, extract it, and upload the extracted project folder to
+[Netlify Drop](https://app.netlify.com/drop). Review the generated URL, then delete the temporary site in Netlify when
+the review is complete. This avoids changing the GitHub Pages deployment used for the default branch.
+
 ## Testing
 
 Open the site, check that the level list loads with thumbnails, start "Getting started", and confirm the game canvas appears. Complete a level, return to the list, and confirm it shows a checkmark; reloading should keep it.

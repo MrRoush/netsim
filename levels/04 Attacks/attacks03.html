@@ -1,13 +1,13 @@
+<p>Each router reduces a packet's <strong>time to live (TTL)</strong> by one. This limit helps prevent packets from
+circling forever. When the TTL runs out, a router drops the packet and sends an error message back.</p>
 
-<p>In this level, the routers use the <strong>time to live (TTL)</strong> field.  The TTL field is designed to keep packets from getting trapped in infinite loops: each router decreases the TTL value by one, and if it ever reaches zero, it stops forwarding the packet and returns an error message instead.<p>
+<p>The routers' addresses are hidden. Use the TTL and the error messages to discover them.</p>
 
-<p>We have hidden the IP addresses of the routers in this level.  Your job is to figure out who they are!</p>
-
-<p><i><strong>Fun fact:</strong> This trick is called "tracerouting", and you can do it for real to see the routers between you and anyone else. Ask a TA to show you how!</i></p>
+<p><i><strong>Connection to real networks:</strong> Traceroute sends probes with different TTL values to learn which routers respond.
+Real networks may filter or handle these probes differently.</i></p>
 
 <h3>Level Objectives</h3>
-
 <ul>
-	<li>Figure out how to use TTLs to figure out the IP addresses of routers</li>
-	<li>Send a ping to <strong>each</strong> of the four routers between Alice and Google</li>
+	<li>Use TTL error replies to find router addresses.</li>
+	<li>Send a ping to each of the four routers between Alice and Google.</li>
 </ul>

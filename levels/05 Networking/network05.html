@@ -1,0 +1,12 @@
+<p>A <strong>VLAN</strong> (virtual LAN) separates devices into groups on a switch. Devices in different VLANs are
+isolated at the switch unless a router is configured to connect those groups. Here, Alice and Bob are in VLAN 10;
+Guest and Teacher are in VLAN 20.</p>
+
+<p>The VLAN labels are configured on the switch ports and are hidden from the packet editor. The simulation focuses on
+which traffic the switch forwards; it does not model Ethernet VLAN tags or inter-VLAN routing.</p>
+
+<h3>Level Objectives</h3>
+<ul>
+	<li>Send a packet from Alice to Bob in the same VLAN.</li>
+	<li>Try to send a packet from Alice to Guest in another VLAN and observe that it stops at the switch.</li>
+</ul>

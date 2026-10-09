@@ -1,15 +1,11 @@
+<p>This level connects several devices to a <strong>switch</strong>. A switch learns which connected link is associated
+with a device and uses that information to forward traffic. Unlike a router, a switch normally connects devices within
+a local network. This activity uses simplified address fields to show the learning idea; real Ethernet switches learn MAC addresses.</p>
 
-<p>This level contains several devices connected to a <strong>switch</strong>. A <strong>switch</strong> is similar
-to a router, but it starts out with an empty <strong>routing table</strong>. Over time, it learns where to send
-packets that belong to a specific destination. Observe how the <strong>switch</strong> learns where devices are
-connected over time.
+<p>Your goal is to redirect a packet intended for Charlie so that it reaches Alice. Watch how the switch updates its
+learned information, then use the packet editor and timing to affect where the packet goes.</p>
 
-<p>Your goal is to "steal" a packet intended to be sent to Charlie.
-To do this, take advantage of the switch's learning process to direct packets with a dstip of Charlie to Alice's
-computer.
-
-<p><em><strong>Hint:</strong> This level will require careful timing! Make sure you launch your packet at the correct time in the simulation. Use the restart button to experiment with different timings.</em>
+<p><em><strong>Hint:</strong> Timing matters. Pause, restart, and try different launch times to see what the switch has learned.</em></p>
 
 <h3>Level Objectives</h3>
-
-<ul><li>use Alice to steal a packet sent from Google to Charlie</li></ul>
+<ul><li>Use Alice to redirect a packet sent from Google to Charlie.</li></ul>

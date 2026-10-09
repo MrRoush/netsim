@@ -1,15 +1,10 @@
+<p>The <strong>srcip</strong> (claimed sender) and <strong>dstip</strong> (destination) fields can be edited. A packet can
+claim to come from Carol even when Alice actually sent it. This is called <strong>IP spoofing</strong>.
+The simulation shows why relying only on a claimed source address can be unsafe; real networks use additional checks
+to verify traffic, and spoofing does not give someone permission to use another device.</p>
 
-<p>The srcip and dstip headers can be easily changed to specify different source and destination addresses.
-In the previous levels, we saw that changing the destination address changed the direction in which the packet was sent.
-Note, however, that we did not need to specify a source address. In fact, routers do not take into account where
-a packet is coming from, only where it is going. One security flaw of the Internet is that we can easily make a
-packet <strong>look</strong> like it is coming from one address when it is really coming from another. This is called
-<strong>spoofing</strong>.
-
-<p>To pass this level, send a packet from Alice's computer to Bob's computer that looks like it is coming from Carol.
-
-<p><em>Notice that we can trick Bob into thinking Carol is talking to him, even though we're not allowed to send packets from Carol!</em>
+<p>Send a packet from Alice to Bob with <strong>srcip</strong> set to Carol.</p>
+<p><em>Observe the difference between the device that sent the packet and the sender named in its header.</em></p>
 
 <h3>Level Objectives</h3>
-
-<ul><li>make Bob think he received a packet from Carol</li></ul>
+<ul><li>Make Bob receive a packet that claims to come from Carol.</li></ul>

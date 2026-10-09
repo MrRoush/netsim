@@ -1,0 +1,48 @@
+{
+	devices:[
+		{id:"Alice", image:"imac", ports:1, x:0.15, y:0.3, script:deviceScripts.trustedKeyClient},
+		{
+			id:"Router", image:"router", ports:3, x:0.5, y:0.5,
+			script:deviceScripts.manualRouter,
+			rules:[
+				{dstip:"Alice", portNum:0},
+				{dstip:"Bob", portNum:1},
+				{dstip:"Eve", portNum:2}
+			]
+		},
+		{id:"Bob", image:"iphone-1", ports:1, x:0.85, y:0.3},
+		{id:"Eve", image:"macbook", ports:1, x:0.5, y:0.85}
+	],
+	links:[
+		{src:"Alice", srcport:0, dst:"Router", dstport:0},
+		{src:"Router", srcport:1, dst:"Bob", dstport:0},
+		{src:"Router", srcport:2, dst:"Eve", dstport:0}
+	],
+	timeline:[
+		{
+			type:"packet", at:100, from:"Eve",
+			payload:{
+				network:{srcip:"Bob", dstip:"Alice"},
+				transport:{proto:"key-demo"},
+				application:{type:"keyresponse", key:"Eve's key"}
+			}
+		},
+		{
+			type:"packet", at:700, from:"Bob",
+			payload:{
+				network:{srcip:"Bob", dstip:"Alice"},
+				transport:{proto:"key-demo"},
+				application:{type:"keyresponse", key:"trusted:Bob"}
+			}
+		}
+	],
+	triggers:[
+		{
+			type:"packet", device:"Bob",
+			payload:{
+				network:{srcip:"Alice", dstip:"Bob"},
+				application:{type:"verified-message", key:"trusted:Bob"}
+			}
+		}
+	]
+}
