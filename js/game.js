@@ -1,7 +1,7 @@
 var DEFAULT_GAMESPEED = 3;
 
-var levelid = <?=$leveldata['id']?>;
-var level = <?php include 'levels/'.$leveldata['filename'].'.json'; ?>;
+var levelid = LEVEL_ID;
+var level = LEVEL_DATA;
 var devices = {};
 var playerPackets = [];
 
@@ -58,7 +58,6 @@ function create() {
 	document.getElementById('pane').style.width = (vpWidth * 0.3 - 40) + 'px';
 	document.getElementById('pane').style.height = (vpHeight - 40) + 'px';
 
-<?php if (LOGGEDIN) { ?>
 	pause = game.add.sprite(80, 20, 'pause');
 	play = game.add.sprite(140, 20, 'play');
 	fast = game.add.sprite(200, 20, 'fast');
@@ -70,7 +69,6 @@ function create() {
 	createLaunchers();
 
 	fast_.visible = false;
-<?php } ?>
 
 	for (var i = 0; i < level.devices.length; i++) {
 		var devSprite = grpDevices.create(0.7 * game.world.width * level.devices[i].x, game.world.height * level.devices[i].y, level.devices[i].image || 'imac');
@@ -107,7 +105,6 @@ function create() {
 
 	$("#loading").hide();
 
-<?php if (LOGGEDIN) { ?>
 	game.input.keyboard.onPressCallback = function(e){ if (e == " ") {
 		if (game.paused) {
 			if (game.time.slowMotion == 1) btnFast();
@@ -116,10 +113,6 @@ function create() {
 	}};
 	loadPlayerPackets();
 	btnReset();
-<?php } else { ?>
-	$("input[type=submit").button();
-	initEvents();
-<?php } ?>
 }
 
 function initEvents() {
@@ -184,12 +177,12 @@ function donePacket() {
 
 	if (!levelOver && youWin) {
 		levelOver = true;
-		$.get("./solns.ajax.php?level="+levelid+"&method=win");
+		markLevelComplete(levelid);
 		$("#winner").dialog({
 			title:"You win!",
 			resizable:false,
 			modal:true,
-			buttons:[{text:"Go to the next level", click:function(){ location.href="./?level="+level.nextLevel; }}]
+			buttons:[{text:"Go to the next level", click:function(){ location.href="./?level="+(level.nextLevel || (levelid + 1)); }}]
 		});
 	}
 

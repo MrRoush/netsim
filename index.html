@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>CS4G Network Simulator</title>
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/jquery-ui.min.js"></script>
+	<link href="css/jquery-ui.min.css" rel="stylesheet">
+	<style type="text/css">
+		* { font-family:Arial, Helvetica, sans-serif; }
+		body { margin: 0; }
+		#content { background:#FFF; max-width:800px; margin:0 auto; padding:30px; min-height:90vh; }
+		.level { float:left; position:relative; border-radius:0 0 10px 10px; border:solid 1px #AAA; margin:10px; padding:5px; }
+		.level a { color:#000; text-decoration:none; }
+		.level .done { opacity:0.3; }
+		.level .check { position:absolute; top:80px; left:70px; }
+	</style>
+</head>
+<body>
+<div id="content"></div>
+
+<script type="text/javascript">
+var LEVELS = [
+	{name:"Basics", levels:[
+		{id:1, name:"Getting started", file:"01 Basics/level01"},
+		{id:2, name:"Packet fields", file:"01 Basics/level02"},
+		{id:3, name:"Ping", file:"01 Basics/level03"},
+		{id:4, name:"Routing", file:"01 Basics/level04"},
+		{id:5, name:"Modems", file:"01 Basics/level05"}
+	]},
+	{name:"Spoofs", levels:[
+		{id:6, name:"IP Spoofing", file:"02 Spoofs/spoofs01"},
+		{id:7, name:"Stealing packets", file:"02 Spoofs/spoofs02"}
+	]},
+	{name:"Denial of Service", levels:[
+		{id:8, name:"Basic DoS", file:"03 DoS/dos01"},
+		{id:9, name:"Distributed DoS", file:"03 DoS/dos02"},
+		{id:10, name:"Smurf attack", file:"03 DoS/dos03"}
+	]},
+	{name:"Attacks", levels:[
+		{id:11, name:"Man-in-the-middle", file:"04 Attacks/attacks01"},
+		{id:12, name:"Censorship", file:"04 Attacks/attacks02"},
+		{id:13, name:"Traceroute", file:"04 Attacks/attacks03"}
+	]}
+];
+
+function findLevel(id) {
+	for (var i = 0; i < LEVELS.length; i++)
+		for (var j = 0; j < LEVELS[i].levels.length; j++)
+			if (LEVELS[i].levels[j].id === id) return LEVELS[i].levels[j];
+	return null;
+}
+
+function progress(id) {
+	try { return (JSON.parse(localStorage.getItem("netsim.completed")) || {})[id] === true; }
+	catch (e) { return false; }
+}
+
+function showListing() {
+	var h = '<h1>Netsim</h1>' +
+		'<p>Welcome to Netsim! If this is your first time playing, we recommend you start from the first level below, and work your way forward.</p>' +
+		'<p>Your progress is saved in this browser only.</p>';
+	LEVELS.forEach(function(cat) {
+		h += '<h3 style="clear:both">' + cat.name + '</h3>';
+		cat.levels.forEach(function(l) {
+			var done = progress(l.id);
+			h += '<div class="level"><a href="./?level=' + l.id + '">' +
+				'<img' + (done ? ' class="done"' : '') + ' src="includes/thumbs/' + l.id + '.png"><br>' + l.name + '</a>' +
+				(done ? '<img class="check" src="includes/thumbs/check.png">' : '') + '</div>';
+		});
+		h += '<div style="clear:both;margin-bottom:30px"></div>';
+	});
+	$("#content").html(h);
+}
+
+function showCongrats() {
+	$("#content").html('<div style="text-align:center"><h3>Congratulations!</h3>' +
+		'<p>You beat the last level in the game!</p><p><img src="includes/fireworks.gif"></p>' +
+		'<p>You may want to go <a href="./">look over the levels</a> to make sure you didn\'t miss any.</p>' +
+		'<p>Otherwise, give yourself a pat on the back! You\'re a real hacker now!</p></div>');
+}
+
+function loadScript(src) {
+	var d = $.Deferred();
+	var s = document.createElement("script");
+	s.src = src;
+	s.onload = function() { d.resolve(); };
+	s.onerror = function() { d.reject(); };
+	document.body.appendChild(s);
+	return d.promise();
+}
+
+function showLevel(l) {
+	var base = "levels/" + l.file;
+	// level data references deviceScripts, so load it first
+	loadScript("js/devicescripts.js").fail(function() {
+		$("#content").html("<p>Failed to load game scripts.</p>");
+	}).done(function() { loadLevel(l, base); });
+}
+
+function loadLevel(l, base) {
+	$.when($.ajax({url: base + ".html", dataType: "text"}), $.ajax({url: base + ".json", dataType: "text"})).done(function(htmlRes, jsonRes) {
+		// level files are JS object literals, not strict JSON
+		window.LEVEL_ID = l.id;
+		window.LEVEL_DATA = (new Function("return (" + jsonRes[0] + ");"))();
+		$("body").css("overflow", "hidden").html(
+			'<div id="game" style="float:left"></div>' +
+			'<div id="pane" style="position:absolute;padding:20px;overflow:auto;">' +
+			'<h1></h1><input type="button" value="Level list" onclick="location.href=\'./\'">' +
+			'<div id="leveldescrip" style="overflow:auto;"></div>' +
+			'<input type="button" id="subpane_close" style="display:none" value="Level info" onclick="onSubpaneClose()">' +
+			'<div id="subpane" style="display:none"></div></div>' +
+			'<div id="editor" style="display:none;">Sent from: <select id="pktFrom"><option>Alice</option><option>Bob</option><option>Carol</option></select><br>' +
+			'<fieldset><legend>Network Layer</legend>srcip: <input type="text" id="srcip"><br>dstip: <input type="text" id="dstip"></fieldset>' +
+			'<fieldset><legend>Transport Layer</legend>payload: <input type="text" id="payload"><br>proto: <input type="text" id="other"></fieldset></div>' +
+			'<div id="winner" style="display:none;"><p>You won the level! Congrats!</p></div>' +
+			'<div id="footer" style="position:absolute;bottom:0.5em;right:0.5em;font-size:0.5em">created by ' +
+			'<a href="https://erinn.io/">erinn atwater</a> and <a href="https://cs.uwaterloo.ca/~cbocovic">cecylia bocovich</a> | ' +
+			'device images designed by <a href="http://www.flaticon.com/authors/madebyoliver">madebyoliver</a> from Flaticon</div>' +
+			'<div id="loading" style="position:absolute;top:0;left:0;right:0;bottom:0;background-color:#DDD;color:#222;text-align:center"><h2>Netsim</h2><p>Loading...</p></div>');
+		$("#pane h1").text(l.name);
+		$("#leveldescrip").html(htmlRes[0]);
+		var chain = $.Deferred().resolve();
+		["js/phaser.min.js", "js/ui.js", "js/bindings.js", "js/game.js"].forEach(function(src) {
+			chain = chain.then(function() { return loadScript(src); });
+		});
+		chain.fail(function() { $("#loading").html("<p>Failed to load game scripts.</p>"); });
+	}).fail(function() {
+		$("#content").html("<p>Failed to load level. If you opened this file directly, serve the folder over HTTP instead (see HOSTING.md).</p>");
+	});
+}
+
+$(function() {
+	var m = /[?&]level=(\d+)/.exec(location.search);
+	if (!m) return showListing();
+	var l = findLevel(parseInt(m[1], 10));
+	if (l) showLevel(l); else showCongrats();
+});
+</script>
+</body>
+</html>
