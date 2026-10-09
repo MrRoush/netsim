@@ -1,0 +1,30 @@
+{
+	devices:[
+		{id:"Alice", image:"imac", ports:1, x:0.2, y:0.3, player:true},
+		{id:"Bob", image:"iphone-1", ports:1, x:0.2, y:0.7},
+		{id:"Guest", image:"macbook", ports:1, x:0.8, y:0.3},
+		{id:"Teacher", image:"monitor", ports:1, x:0.8, y:0.7},
+		{
+			id:"VLAN Switch", image:"router", ports:4, x:0.5, y:0.5,
+			script:deviceScripts.vlanSwitch,
+			vlans:[10,10,20,20],
+			rules:[
+				{dstip:"Alice", portNum:0},
+				{dstip:"Bob", portNum:1},
+				{dstip:"Guest", portNum:2},
+				{dstip:"Teacher", portNum:3}
+			]
+		}
+	],
+	links:[
+		{src:"Alice", srcport:0, dst:"VLAN Switch", dstport:0},
+		{src:"Bob", srcport:0, dst:"VLAN Switch", dstport:1},
+		{src:"Guest", srcport:0, dst:"VLAN Switch", dstport:2},
+		{src:"Teacher", srcport:0, dst:"VLAN Switch", dstport:3}
+	],
+	timeline:[],
+	triggers:[
+		{type:"packet", device:"Bob", payload:{network:{srcip:"Alice", dstip:"Bob"}}},
+		{type:"packet", device:"VLAN Switch", payload:{network:{srcip:"Alice", dstip:"Guest"}}}
+	]
+}

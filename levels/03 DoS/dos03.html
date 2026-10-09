@@ -1,21 +1,18 @@
+<p>The router in this activity responds to a simplified <strong>broadcast ping</strong>. A broadcast is addressed to a
+whole local network instead of one device. The router copies the request to the other connected devices, and devices that
+reply can create more traffic.</p>
 
-<p>The router in this level responds to a special type of ping, called a "Broadcast ping".  When a router receives a packet that is addressed
-to the broadcast address, it replicates it and sends it to <em>all</em> the machines on the network.
+<p>Google's capacity is higher here, so traffic from one computer is not enough. You control one computer, but can ask
+other devices to reply to a broadcast. A historical attack called a <strong>smurf attack</strong> abused this behavior,
+often with a spoofed source address. Networks are designed to prevent such misuse; this is a simplified, defensive learning example.</p>
 
-<p>In this level, Google has received an <strong>upgrade</strong>: it can no longer be DoS'd from a single computer.  
-Multiple computers will be required to coordinate with each other in order to send enough traffic.
-
-<p>However, you only have control of a single computer!  You will have to implement a <strong>smurf attack</strong>.  In a smurf attack, you leverage 
-other devices to send traffic <em>for you</em>.
-
-<p>Experiment with sending broadcast pings by sending a message with the dstip set to "Broadcast".  
-See if you can overwhelm Google by combining this with what you learned about spoofing packet source addresses.
+<p>Try a packet with <strong>dstip</strong> set to <strong>Broadcast</strong>. Observe the replies, then consider how the
+source-address field changes where those replies go.</p>
 
 <h3>Level Objectives</h3>
-
 <ul>
-	<li>Send a ping to the IP <strong>Broadcast</strong></li>
-	<li>Can you get Barbara to send a packet to Google?</li>
-	<li>Overwhelm Google with traffic</li>
-	<li>Try to do this with only one packet in the Editor! (you may use the "repeat" feature)
+	<li>Send a ping to <strong>Broadcast</strong>.</li>
+	<li>Get Barbara to send a packet to Google.</li>
+	<li>Fill Google's capacity meter.</li>
+	<li>Try to do this with one packet in the editor (you may use Repeat).</li>
 </ul>

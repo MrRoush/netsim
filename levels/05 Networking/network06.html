@@ -1,0 +1,13 @@
+<p>Encryption can protect message contents, but a device must also check that a key belongs to the person it expects.
+This activity uses a simplified key label to demonstrate that idea; it does not use real encryption, certificates, or
+digital signatures.</p>
+
+<p>Eve sends Alice a reply that claims to be from Bob but contains an untrusted key. Alice ignores it. Later, Alice
+receives the trusted label <strong>trusted:Bob</strong>, so she sends Bob a message. Pause and inspect both replies to
+compare the labels.</p>
+
+<h3>Level Objectives</h3>
+<ul>
+	<li>Observe Alice ignore the untrusted key reply.</li>
+	<li>Observe Bob receive a message only after Alice gets the trusted key label.</li>
+</ul>

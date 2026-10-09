@@ -1,15 +1,11 @@
+<p>A home network may use <strong>network address translation (NAT)</strong> at its router to let several devices share
+an outside address. In this simplified activity, the device named Home changes outgoing packet addresses and remembers
+where replies should go. A modem provides the connection to an internet service provider; it is not the same thing as NAT.
+Pause and compare a packet before and after it passes through Home.</p>
 
-<p> Often, your personal computer is connected to the Internet
- through a <strong>modem</strong>. This <strong>modem</strong> takes the outgoing packets from all the machines connected to it
- and set the source address to a single value (such as "Home"). Incoming packets are then mapped back to the original
- machines. Pause the simulation and look at the packet information before and after it passes through the 
- <strong>modem</strong>.
- 
- <p>To pass this level, send a <strong>ping</strong> request from Alice's computer to Google.
- 
- <p><em><strong>Remember:</strong> ping packets have a transport layer header called <span class="ul">proto</span> with the value <span class="ul">ICMP</span></em></p>
- 
- <h3>Level Objectives</h3>
+<p>To complete the level, send an <strong>ICMP ping</strong> from Alice to Google and watch the reply return.</p>
 
-<ul><li>send a ping from Alice to Google</li></ul>
- 
+<p><em><strong>Remember:</strong> set the transport-layer <strong>proto</strong> field to <strong>ICMP</strong>.</em></p>
+
+<h3>Level Objectives</h3>
+<ul><li>Send a ping from Alice to Google.</li></ul>

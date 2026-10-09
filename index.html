@@ -41,6 +41,14 @@ var LEVELS = [
 		{id:11, name:"Man-in-the-middle", file:"04 Attacks/attacks01"},
 		{id:12, name:"Censorship", file:"04 Attacks/attacks02"},
 		{id:13, name:"Traceroute", file:"04 Attacks/attacks03"}
+	]},
+	{name:"More networking concepts", levels:[
+		{id:14, name:"DNS lookup", file:"05 Networking/network01", thumbnail:2},
+		{id:15, name:"Hub or switch?", file:"05 Networking/network02", thumbnail:4},
+		{id:16, name:"Getting an address", file:"05 Networking/network03", thumbnail:5},
+		{id:17, name:"Firewall rules", file:"05 Networking/network04", thumbnail:8},
+		{id:18, name:"Network segments", file:"05 Networking/network05", thumbnail:9},
+		{id:19, name:"Check who sent the key", file:"05 Networking/network06", thumbnail:11}
 	]}
 ];
 
@@ -65,7 +73,7 @@ function showListing() {
 		cat.levels.forEach(function(l) {
 			var done = progress(l.id);
 			h += '<div class="level"><a href="./?level=' + l.id + '">' +
-				'<img' + (done ? ' class="done"' : '') + ' src="includes/thumbs/' + l.id + '.png"><br>' + l.name + '</a>' +
+				'<img' + (done ? ' class="done"' : '') + ' src="includes/thumbs/' + (l.thumbnail || l.id) + '.png"><br>' + l.name + '</a>' +
 				(done ? '<img class="check" src="includes/thumbs/check.png">' : '') + '</div>';
 		});
 		h += '<div style="clear:both;margin-bottom:30px"></div>';

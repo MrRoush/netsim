@@ -1,19 +1,19 @@
+<p>Bob and Alice use a simplified key exchange before sending a message. The exchange is not authenticated, so Alice
+cannot tell whether the key really came from Bob. This makes the example vulnerable to a
+<strong>man-in-the-middle (MITM)</strong> attack.</p>
 
-<p>In this level, you can see an example of Bob sending Alice an <strong>encryption key</strong> in order to protect 
-their messages.  However, their simple protocol is vulnerable to a <strong>man-in-the-middle</strong> attack.
+<p>Eve controls a router between Alice and Bob. She can inspect and change packets that pass through it, including
+packets that claim to come from Alice or Bob.</p>
 
-<p>Eve has control over a router between Alice and Bob. She can see all messages that pass through this router and she can spoof messages from either Alice or Bob.</p>
+<p>Use the packet editor to make Alice accept Eve's key, <strong>31337</strong>, while still sending Bob a message he
+can read with his key, <strong>123456</strong>. The key values in this activity are labels; the simulator does not perform
+real encryption or prove a user's identity.</p>
 
-<p>To beat this level, you need to trick Alice into encrypting her messages using a key Eve knows: <strong>31337</strong>.  
-You must also trick Bob into thinking he is having a conversation with Alice as normal!  See if you can figure out how 
-to trick them both without them discovering your presence between them.
-
-<p><em><strong>Hint:</strong> there is an example of how the encryption protocol works at the top of the field.  Use the 
-<span class="button">pause</span> button to see what the values of the packet headers are in the protocol.</em>
+<p><em><strong>Hint:</strong> Pause the simulation and inspect the example exchange at the top. Follow the packet fields
+to see which key Alice and Bob use.</em></p>
 
 <h3>Level Objectives</h3>
-
 <ul>
-	<li>trick Alice into encrypting her message with Eve's key: 31337</li>
-	<li>make sure Bob can still read the message, by encrypting it with his key</li>
+	<li>Make Alice use Eve's key, <strong>31337</strong>.</li>
+	<li>Make sure Bob receives the message using his key, <strong>123456</strong>.</li>
 </ul>
